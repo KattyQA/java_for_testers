@@ -14,6 +14,6 @@ public class TriangleTests {
     @Test
     void  getTriangleArea(){
         Triangle triangle = new Triangle(23.0, 24.0, 12.0);
-        Assertions.assertEquals(135.85263155345942, triangle.area(triangle));
+        Assertions.assertEquals(135.85263155345942, triangle.area());
     }
 }
