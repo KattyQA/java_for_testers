@@ -8,7 +8,7 @@ public class TriangleTests {
     @Test
     void getTrianglePerimeter(){
         Triangle triangle = new Triangle(2.0, 2.0, 3.0);
-        Assertions.assertEquals(7.0, triangle.perimeter(triangle));
+        Assertions.assertEquals(7.0, triangle.perimeter());
     }
 
     @Test

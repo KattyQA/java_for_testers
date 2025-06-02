@@ -11,12 +11,12 @@ public class Triangle {
         this.c = c;
     }
 
-    public double perimeter(Triangle triangle){
+    public double perimeter(){
         return this.a + this.b + this.c;
     }
 
     public double area(Triangle triangle){
-        double p2 = (triangle.perimeter(triangle))/2;
+        double p2 = (triangle.perimeter())/2;
         return Math.sqrt(p2*(p2 - this.a)*(p2 - this.b)*(p2 - this.c));
     }
 
