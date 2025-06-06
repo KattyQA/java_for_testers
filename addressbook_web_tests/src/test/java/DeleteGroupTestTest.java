@@ -7,7 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class CreateGroupTestTest {
+public class DeleteGroupTestTest {
     private static WebDriver driver;
 
     @BeforeEach
@@ -31,36 +31,25 @@ public class CreateGroupTestTest {
     }
 
     @Test
-    public void CanCreateGroupTest() {
-        if (!isElementPresent(By.name("new"))){
+    public void CanDeleteGroupTest() {
+        if (!isElementPresent(By.name("new"))) {
             driver.findElement(By.linkText("groups")).click();
         }
-        driver.findElement(By.name("new")).click();
-        driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).sendKeys("new");
-        driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).sendKeys("new");
-        driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).sendKeys("new");
-        driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("group page")).click();
-
-    }
-
-    @Test
-    public void CanCreateGroupTestWithEmptyName() {
-        if (!isElementPresent(By.name("new"))){
-            driver.findElement(By.linkText("groups")).click();
+        if (isElementPresent(By.name("selected[]"))) {
+            driver.findElement(By.name("new")).click();
+            driver.findElement(By.name("group_name")).click();
+            driver.findElement(By.name("group_name")).sendKeys("new");
+            driver.findElement(By.name("group_header")).click();
+            driver.findElement(By.name("group_header")).sendKeys("new");
+            driver.findElement(By.name("group_footer")).click();
+            driver.findElement(By.name("group_footer")).sendKeys("new");
+            driver.findElement(By.name("submit")).click();
+            driver.findElement(By.linkText("group page")).click();
         }
-        driver.findElement(By.name("new")).click();
-        driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).sendKeys("");
-        driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).sendKeys("");
-        driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).sendKeys("");
-        driver.findElement(By.name("submit")).click();
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("group page")).click();
+        driver.findElement(By.cssSelector("html")).click();
 
     }
 
