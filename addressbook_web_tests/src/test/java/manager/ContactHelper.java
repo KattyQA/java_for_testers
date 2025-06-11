@@ -1,7 +1,10 @@
 package manager;
 
 import model.Contact;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ContactHelper extends HelperBase {
 
@@ -24,6 +27,13 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void deleteContact(){
+        selectContact();
+        deleteSelectedContact();
+        manager.handleAlertIfPresent();
+
+    }
+
     private void returnToHomePage() {
         click(By.linkText("home page"));
     }
@@ -38,6 +48,18 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contact.address());
         type(By.name("email"), contact.email());
         type(By.name("home"), contact.homePhone());
+    }
+
+    public boolean isContactPresent() {
+        return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    private void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    private void deleteSelectedContact(){
+        click(By.xpath("//input[@value='Delete']"));
     }
 
 
