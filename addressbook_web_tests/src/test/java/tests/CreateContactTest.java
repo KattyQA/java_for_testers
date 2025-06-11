@@ -6,7 +6,7 @@ public class CreateContactTest extends TestBase {
 
   @Test
   public void canCreateContactTest() {
-    app.contacts().createContact(new Contact("first", "middle", "last"));
+    app.contacts().createContact(new Contact("name", "last", "Perm", "s@rty.ru", "2342563654"));
 
   }
 

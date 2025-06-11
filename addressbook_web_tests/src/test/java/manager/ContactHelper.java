@@ -34,8 +34,10 @@ public class ContactHelper extends HelperBase {
 
     private void fillContactForm(Contact contact) {
         type(By.name("firstname"), contact.firstName());
-        type(By.name("middlename"), contact.middleName());
         type(By.name("lastname"), contact.lastName());
+        type(By.name("address"), contact.address());
+        type(By.name("email"), contact.email());
+        type(By.name("home"), contact.homePhone());
     }
 
 
