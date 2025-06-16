@@ -1,10 +1,8 @@
 package manager;
 
 import model.Contact;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class ContactHelper extends HelperBase {
 
