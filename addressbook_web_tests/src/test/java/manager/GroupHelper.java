@@ -3,22 +3,17 @@ package manager;
 import model.Group;
 import org.openqa.selenium.By;
 
-public class GroupHelper extends HelperBase{
+public class GroupHelper extends HelperBase {
 
-    public GroupHelper(ApplicationManager manager){
+    public GroupHelper(ApplicationManager manager) {
         super(manager);
 
     }
 
     public void openGroupsPage() {
-        if (!manager.isElementPresent(By.name("new"))){
+        if (!manager.isElementPresent(By.name("new"))) {
             click(By.linkText("groups"));
         }
-    }
-
-    public boolean isGroupPresent() {
-        openGroupsPage();
-        return manager.isElementPresent(By.name("selected[]"));
     }
 
     public void createGroup(Group group) {
@@ -32,7 +27,7 @@ public class GroupHelper extends HelperBase{
     public void deleteGroup() {
         openGroupsPage();
         selectGroup();
-        removeSelectedGroup();
+        removeSelectedGroups();
         returnToGroupsPage();
     }
 
@@ -49,19 +44,13 @@ public class GroupHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-
-
     private void initGroupCreation() {
         click(By.name("new"));
     }
 
-
-
-    private void removeSelectedGroup() {
+    private void removeSelectedGroups() {
         click(By.name("delete"));
     }
-
-
 
     private void returnToGroupsPage() {
         click(By.linkText("group page"));
@@ -87,4 +76,21 @@ public class GroupHelper extends HelperBase{
         click(By.name("selected[]"));
     }
 
+    public int getCount() {
+        openGroupsPage();
+         return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public void removeAllGroups() {
+        openGroupsPage();
+        selectAllGroups();
+        removeSelectedGroups();
+    }
+
+    private void selectAllGroups() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
 }

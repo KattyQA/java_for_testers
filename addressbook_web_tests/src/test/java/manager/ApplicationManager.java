@@ -17,8 +17,11 @@ public class ApplicationManager {
         if (driver == null) {
             if ("firefox".equals(browser)){
                 driver = new FirefoxDriver();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
             } else if ("chrome".equals(browser)){
                 driver = new ChromeDriver();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }

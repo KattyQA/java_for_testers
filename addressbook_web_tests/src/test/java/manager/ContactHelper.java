@@ -60,6 +60,11 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
+    public int getCountContact(){
+        openContactsPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
 
 
 }
