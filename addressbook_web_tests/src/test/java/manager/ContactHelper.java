@@ -1,8 +1,11 @@
 package manager;
 
 import model.Contact;
+import model.Group;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -33,7 +36,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void returnToHomePage() {
-        click(By.linkText("home page"));
+        click(By.linkText("home"));
     }
 
     private void saveNewContact() {
@@ -63,6 +66,25 @@ public class ContactHelper extends HelperBase {
     public int getCountContact(){
         openContactsPage();
         return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public List<Contact> getList() {
+        returnToHomePage();
+        var contacts = new ArrayList<Contact>();
+        var trs = manager.driver.findElements(By.cssSelector("tr.odd[name='entry']"));
+        for (var tr : trs){
+            var firstName = tr.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
+            var lastname = tr.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
+            var checkbox = tr.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new Contact()
+                    .withId(id)
+                    .withFirstName(firstName)
+                    .withLastName(lastname)
+
+            );
+        }
+        return contacts;
     }
 
 
