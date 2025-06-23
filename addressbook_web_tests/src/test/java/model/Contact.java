@@ -1,9 +1,13 @@
 package model;
 
+import java.util.Objects;
+
 public record Contact(String id, String firstName, String lastName, String address, String email, String homePhone) {
     public Contact(){
         this("", "name", "last","Perm", "send@mail.ru", "223332424");
     }
+
+
 
     public Contact withFirstName(String firstName) {
         return new Contact(this.id, firstName, this.lastName, this.address, this.email, this.homePhone);
@@ -29,4 +33,16 @@ public record Contact(String id, String firstName, String lastName, String addre
         return new Contact(id, this.firstName, this.lastName, this.address, this.email, homePhone);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return Objects.equals(firstName, contact.firstName) && Objects.equals(lastName, contact.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 }

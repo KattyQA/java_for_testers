@@ -16,11 +16,11 @@ public class CreateContactTest extends TestBase {
     var result = new ArrayList<Contact>();
     for (int i = 0; i < 5; i++){
       result.add(new Contact()
-              .withFirstName(randomString(i))
-              .withLastName(randomString(i))
-              .withEmail(randomString(i))
-              .withAddress(randomString(i))
-              .withHomePhone(randomString(i)));
+              .withFirstName(randomString(i+1))
+              .withLastName(randomString(i+1))
+              .withEmail(randomString(i+1))
+              .withAddress(randomString(i+1))
+              .withHomePhone(randomString(i+1)));
 
     }
     return result;
@@ -30,7 +30,6 @@ public class CreateContactTest extends TestBase {
   @MethodSource("contactProvider")
   public void canCreateContactTest(Contact contact) {
     var oldContacts = app.contacts().getList();
-    System.out.println(oldContacts);
     app.contacts().createContact(contact);
     var newContacts = app.contacts().getList();
     System.out.println(newContacts);
