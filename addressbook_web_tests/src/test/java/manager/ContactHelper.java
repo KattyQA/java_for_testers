@@ -3,6 +3,7 @@ package manager;
 import model.Contact;
 import model.Group;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,16 +72,16 @@ public class ContactHelper extends HelperBase {
     public List<Contact> getList() {
         returnToHomePage();
         var contacts = new ArrayList<Contact>();
-        var trs = manager.driver.findElements(By.cssSelector("tr.odd[name='entry']"));
+        var trs = manager.driver.findElements(By.cssSelector("tr[name='entry']"));
         for (var tr : trs){
-            var firstName = tr.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-            var lastname = tr.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
-            var checkbox = tr.findElement(By.name("selected[]"));
-            var id = checkbox.getAttribute("value");
+            List<WebElement> cells = tr.findElements(By.tagName("td"));
+            var lastName = cells.get(1).getText();
+            var firstName = cells.get(2).getText();
+            var id = tr.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("id");
             contacts.add(new Contact()
                     .withId(id)
                     .withFirstName(firstName)
-                    .withLastName(lastname)
+                    .withLastName(lastName)
 
             );
         }
