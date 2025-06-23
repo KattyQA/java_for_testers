@@ -1,7 +1,6 @@
 package manager;
 
 import model.Contact;
-import model.Group;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -29,8 +28,8 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void deleteContact(){
-        selectContact();
+    public void deleteContact(Contact contact){
+        selectContact(contact);
         deleteSelectedContact();
         manager.handleAlertIfPresent();
 
@@ -56,8 +55,8 @@ public class ContactHelper extends HelperBase {
         return manager.isElementPresent(By.name("selected[]"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(Contact contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));;
     }
 
     private void deleteSelectedContact(){
