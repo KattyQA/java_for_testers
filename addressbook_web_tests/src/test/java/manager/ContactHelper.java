@@ -3,7 +3,11 @@ package manager;
 import model.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +32,26 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void modifyContact(Contact contact, Contact modifiedContact) {
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToHomePage();
+    }
+
+    public void submitContactModification() {
+        manager.driver.findElement(By.cssSelector("input:nth-child(74)")).click();
+    }
+
     public void deleteContact(Contact contact){
         selectContact(contact);
         deleteSelectedContact();
         manager.handleAlertIfPresent();
 
+    }
+
+    public void initContactModification(Contact contact){
+        manager.driver.findElement(By.id(contact.id())).findElement(By.xpath("../../td[8]/a/img")).click();
     }
 
     private void returnToHomePage() {
