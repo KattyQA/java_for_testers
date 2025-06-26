@@ -68,6 +68,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contact.address());
         type(By.name("email"), contact.email());
         type(By.name("home"), contact.homePhone());
+        attach(By.name("photo"), contact.photo());
     }
 
     public boolean isContactPresent() {

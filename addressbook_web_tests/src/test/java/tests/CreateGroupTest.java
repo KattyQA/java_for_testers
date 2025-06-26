@@ -1,10 +1,17 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,7 +19,7 @@ import java.util.List;
 
 public class CreateGroupTest extends TestBase {
 
-    public static List<Group> groupProvider() {
+    public static List<Group> groupProvider() throws IOException {
         var result = new ArrayList<Group>();
         for (var name : List.of("", "group name")) {
             for (var header : List.of("", "group header")){
@@ -24,13 +31,20 @@ public class CreateGroupTest extends TestBase {
                 }
             }
         }
-        for (int i = 0; i < 5; i++){
-           result.add(new Group()
-                   .withName(randomString(i))
-                   .withHeader(randomString(i))
-                   .withFooter(randomString(i)));
-
+        var json = "";
+        try (var reader = new FileReader("groups.json");
+        var breader = new BufferedReader(reader)
+        ) {
+            var line = breader.readLine();
+            while (line != null){
+                json = json + line;
+                line = breader.readLine();
+            }
         }
+
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<Group>>(){});
+        result.addAll(value);
         return result;
     }
 
