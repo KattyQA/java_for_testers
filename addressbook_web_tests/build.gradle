@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+
 }
+
+
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -13,7 +16,6 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.33.0'
-    testImplementation 'junit:junit:4.13.1'
     implementation 'org.jcommander:jcommander:2.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
@@ -25,5 +27,8 @@ test {
     useJUnitPlatform()
     if(project.hasProperty("browser")){
         systemProperty("browser", project.property("browser"))
+    }
+    if(project.hasProperty("target")){
+        systemProperty("target", project.property("target"))
     }
 }

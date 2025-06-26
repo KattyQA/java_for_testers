@@ -2,6 +2,7 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +32,7 @@ public class CreateGroupTest extends TestBase {
                 }
             }
         }
-        var json = "";
+        /*var json = "";
         try (var reader = new FileReader("groups.json");
         var breader = new BufferedReader(reader)
         ) {
@@ -40,10 +41,10 @@ public class CreateGroupTest extends TestBase {
                 json = json + line;
                 line = breader.readLine();
             }
-        }
+        }*/
 
-        ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<Group>>(){});
+        ObjectMapper mapper = new XmlMapper();
+        var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<Group>>(){});
         result.addAll(value);
         return result;
     }

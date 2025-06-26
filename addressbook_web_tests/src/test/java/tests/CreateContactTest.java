@@ -2,6 +2,7 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import model.Contact;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
@@ -23,8 +24,8 @@ public class CreateContactTest extends TestBase {
 
   public static List<Contact> contactProvider () throws IOException {
     var result = new ArrayList<Contact>();
-    var json = "";
-    try (var reader = new FileReader("contacts.json");
+   /* var json = "";
+    try (var reader = new FileReader("contacts.xml");
          var breader = new BufferedReader(reader)
     ) {
       var line = breader.readLine();
@@ -32,10 +33,10 @@ public class CreateContactTest extends TestBase {
         json = json + line;
         line = breader.readLine();
       }
-    }
+    }*/
 
-    ObjectMapper mapper = new ObjectMapper();
-    var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<Contact>>(){});
+    ObjectMapper mapper = new XmlMapper();
+    var value = mapper.readValue(new File("contacts.xml"), new TypeReference<List<Contact>>(){});
     result.addAll(value);
     return result;
   }

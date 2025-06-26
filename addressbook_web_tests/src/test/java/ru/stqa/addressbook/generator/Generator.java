@@ -30,12 +30,17 @@ public class Generator {
     int count;
 
     public static void main(String[] args) throws IOException {
-        var generator = new Generator();
-        JCommander.newBuilder()
-                .addObject(generator)
-                .build()
-                .parse(args);
-        generator.run();
+        try {
+            var generator = new Generator();
+            JCommander.newBuilder()
+                    .addObject(generator)
+                    .build()
+                    .parse(args);
+            generator.run();
+        } catch (Exception e){
+            e.printStackTrace(); // Выведет ошибку в консоль
+            System.exit(1);      // Явное завершение с кодом ошибки
+        }
     }
 
     private void run() throws IOException {
@@ -62,7 +67,7 @@ public class Generator {
             var mapper = new XmlMapper();
             mapper.writeValue(new File(output), data);
 
-        }else {
+        } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
     }
