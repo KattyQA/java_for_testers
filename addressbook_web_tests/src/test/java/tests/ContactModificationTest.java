@@ -1,11 +1,12 @@
 package tests;
-import model.Contact;
 
-import model.Group;
+import model.Contact;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
 
 public class ContactModificationTest extends TestBase {
 

@@ -108,4 +108,9 @@ public class GroupHelper extends HelperBase {
         }
         return groups;
     }
+
+    public void removeContactFromGroup() {
+        openGroupsPage();
+
+    }
 }

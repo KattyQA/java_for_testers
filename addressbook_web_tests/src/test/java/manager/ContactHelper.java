@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ContactHelper extends HelperBase {
 
@@ -124,6 +125,33 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    public void addContactToGroup(Contact contact) {
+        selectContact(contact);
+        addContact();
+    }
+
+    private void addContact() {
+        click(By.name("add"));
+    }
+
+    public void removeContactFromGroup(Group group, Contact contact) {
+
+        selectContactGroup(group);
+        selectContact(contact);
+        removeContact();
+    }
+
+    private void removeContact() {
+        click(By.name("remove"));
+    }
+
+    private void selectContactGroup(Group group) {
+        var wait = new WebDriverWait(manager.driver, Duration.ofSeconds(10));
+        var selectElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("group")));
+        var select = new Select(selectElement);
+        select.selectByValue(group.id());
+
+    }
 
 
 }
