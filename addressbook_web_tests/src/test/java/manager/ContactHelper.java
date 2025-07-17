@@ -1,9 +1,11 @@
 package manager;
 
 import model.Contact;
+import model.Group;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -30,6 +32,19 @@ public class ContactHelper extends HelperBase {
         saveNewContact();
         returnToHomePage();
 
+    }
+
+    public void createContact(Contact contact, Group group) {
+        openContactsPage();
+        fillContactForm(contact);
+        selectGroup(group);
+        saveNewContact();
+        returnToHomePage();
+
+    }
+
+    private void selectGroup(Group group) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
     public void modifyContact(Contact contact, Contact modifiedContact) {
@@ -68,7 +83,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contact.address());
         type(By.name("email"), contact.email());
         type(By.name("home"), contact.homePhone());
-        attach(By.name("photo"), contact.photo());
+        if (!contact.photo().isEmpty()) {
+            attach(By.name("photo"), contact.photo());
+        }
     }
 
     public boolean isContactPresent() {

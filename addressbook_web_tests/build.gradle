@@ -20,6 +20,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.18.1'
+    implementation 'com.mysql:mysql-connector-j:9.3.0'
+    implementation 'org.hibernate.orm:hibernate-core:7.0.6.Final'
 
 }
 
