@@ -2,8 +2,7 @@ package manager;
 
 import model.Group;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,4 +45,21 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isInGroup(int contactId, int groupId) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+             PreparedStatement statement = conn.prepareStatement(
+                     "SELECT COUNT(*) FROM address_in_groups WHERE id = ? AND group_id = ?")) {
+
+            statement.setInt(1, contactId);
+            statement.setInt(2, groupId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next() && resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking group membership", e);
+        }
+    }
+
 }

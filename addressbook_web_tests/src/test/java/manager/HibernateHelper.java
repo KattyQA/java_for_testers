@@ -106,4 +106,30 @@ public class HibernateHelper extends HelperBase {
            return convertContactList(session.find(GroupRecord.class, group.id()).contacts);
         });
     }
+
+    public List<Integer> getContactIds() {
+        return sessionFactory.fromSession(session -> {
+            try {
+                return session.createQuery("SELECT c.id FROM ContactRecord c", Integer.class)
+                        .list();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to fetch contact IDs", e);
+            }
+        });
+    }
+
+    public boolean isInGroup(int contactId, int groupId) {
+        return sessionFactory.fromSession(session -> {
+            Long count = session.createQuery(
+                            "SELECT COUNT(ag) FROM `address_in_groups` " +
+                                    "WHERE ag.id = :contactId " +
+                                    "AND ag.group.id = :groupId",
+                            Long.class)
+                    .setParameter("contactId", contactId)
+                    .setParameter("groupId", groupId)
+                    .uniqueResult();
+
+            return count != null && count > 0;
+        });
+    }
 }

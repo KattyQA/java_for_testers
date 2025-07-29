@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static tests.TestBase.randomFile;
 
@@ -82,30 +85,25 @@ public class Generator {
         }
     }
 
-    private Object generateGroups() {
-        var result = new ArrayList<Group>();
-        for (int i = 0; i < count; i++){
-            result.add(new Group()
-                    .withName(CommonFunctions.randomString(i))
-                    .withHeader(CommonFunctions.randomString(i))
-                    .withFooter(CommonFunctions.randomString(i)));
+    private Object generateDate(Supplier<Object> dataSupplier) {
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
+    }
 
-        }
-        return result;
+    private Object generateGroups() {
+        return generateDate(() -> new Group()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10)));
+
     }
 
     private Object generateContacts() {
-        var result = new ArrayList<Contact>();
-        for (int i = 0; i < 5; i++){
-            result.add(new Contact()
-                    .withFirstName(CommonFunctions.randomString(i+1))
-                    .withLastName(CommonFunctions.randomString(i+1))
-                    .withEmail(CommonFunctions.randomString(i+1))
-                    .withAddress(CommonFunctions.randomString(i+1))
-                    .withHomePhone(CommonFunctions.randomString(i+1))
-                    .withPhoto(randomFile("src/test/resources/images")));
-
-        }
-        return result;
+        return generateDate(() -> new Contact()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withHomePhone(CommonFunctions.randomString(10))
+                .withPhoto(randomFile("src/test/resources/images")));
     }
 }
