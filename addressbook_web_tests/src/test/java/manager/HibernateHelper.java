@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
     private SessionFactory sessionFactory;
@@ -26,12 +27,8 @@ public class HibernateHelper extends HelperBase {
                         .buildSessionFactory();
     }
 
-    static List<Group> converList(List<GroupRecord> records){
-        List<Group> result = new ArrayList<>();
-        for (var record : records){
-            result.add(convert(record));
-        }
-        return result;
+    static List<Group> convertGroupList(List<GroupRecord> records){
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
     }
 
     private static Group convert(GroupRecord record) {
@@ -47,18 +44,21 @@ public class HibernateHelper extends HelperBase {
     }
 
     static List<Contact> convertContactList(List<ContactRecord> records){
-        List<Contact> result = new ArrayList<>();
-        for (var record : records){
-            result.add(convert(record));
-        }
-        return result;
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
     }
 
     private static Contact convert(ContactRecord record){
         return new Contact().withId("" + record.id)
                 .withFirstName(record.firstname)
                 .withLastName(record.lastname)
-                .withAddress(record.address);
+                .withAddress(record.address)
+                .withMobilePhone(record.mobile)
+                .withHomePhone(record.home)
+                .withSecondaryPhone(record.phone2)
+                .withWorkPhone(record.work)
+                .withEmail(record.email)
+                .withEmail2(record.email2)
+                .withEmail3(record.email3);
     }
 
     private static ContactRecord convert(Contact contact) {
@@ -70,7 +70,7 @@ public class HibernateHelper extends HelperBase {
     }
 
     public List<Group> getGroupList(){
-        return converList(sessionFactory.fromSession(session -> {
+        return convertGroupList(sessionFactory.fromSession(session -> {
             return session.createQuery("from GroupRecord", GroupRecord.class).list();
         }));
     }

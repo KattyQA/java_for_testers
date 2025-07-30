@@ -5,9 +5,6 @@ import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
 
 public class AddContactToGroup extends TestBase{
@@ -15,7 +12,7 @@ public class AddContactToGroup extends TestBase{
     @Test
     public void canAddContactToGroup(){
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", ""));
+            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
         }
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new Group("", "new", "new", "new"));
@@ -34,7 +31,7 @@ public class AddContactToGroup extends TestBase{
     @Test
     public void testAddContactToGroup() {
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", ""));
+            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
         }
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new Group("", "new", "new", "new"));
@@ -58,7 +55,7 @@ public class AddContactToGroup extends TestBase{
 
 
         if (!contactAdded) {
-            Contact newContact = new Contact("", "newName", "newLast", "Perm", "new@email.ru", "987654321", "");
+            Contact newContact = new Contact("", "newName", "newLast", "Perm", "new@email.ru", "987654321", "", "", "", "", "", "");
             app.contacts().createContact(newContact);
             app.contacts().addContactToGroup(newContact);
         }

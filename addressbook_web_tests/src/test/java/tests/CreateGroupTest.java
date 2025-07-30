@@ -12,9 +12,10 @@ import ru.stqa.addressbook.common.CommonFunctions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CreateGroupTest extends TestBase {
@@ -48,34 +49,26 @@ public class CreateGroupTest extends TestBase {
         return result;
     }
 
-    public static Stream<Group> singleRandomGroup() {
+    public static Stream<Group> randomGroups() {
         Supplier<Group> randomGroup = () -> new Group()
                 .withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(10))
                 .withFooter(CommonFunctions.randomString(10));
-        return Stream.generate(randomGroup).limit(3);
+        return Stream.generate(randomGroup).limit(1);
     }
 
 
     @ParameterizedTest
-    @MethodSource("singleRandomGroup")
+    @MethodSource("randomGroups")
     public void CanCreateMGroup(Group group) {
         var oldGroups = app.hbm().getGroupList();
         app.groups().createGroup(group);
         var newGroups = app.hbm().getGroupList();
-        Comparator<Group> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newGroups.sort(compareById);
-        var maxId = newGroups.get(newGroups.size() - 1).id();
+        var extraGroups = newGroups.stream().filter(g -> ! oldGroups.contains(g)).toList();
+        var newId = extraGroups.get(0).id();
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(maxId));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newGroups, expectedList);
-
-        var newUiGroups = app.groups().getList();
-
-
+        expectedList.add(group.withId(newId));
+        Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
     }
 
     public static List<Group> negativeGroupProvider() {

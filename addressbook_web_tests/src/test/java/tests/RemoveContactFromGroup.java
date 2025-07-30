@@ -5,14 +5,12 @@ import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-
 public class RemoveContactFromGroup extends TestBase {
     @Test
     public void canRemoveContactFromGroup() {
         // Проверяем данные
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new Contact("", "name", "last", "Perm", "test@mail.ru", "1234567890", ""));
+            app.contacts().createContact(new Contact("", "name", "last", "Perm", "test@mail.ru", "1234567890", "", "", "", "", "", ""));
         }
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new Group("", "new", "header", "footer"));
