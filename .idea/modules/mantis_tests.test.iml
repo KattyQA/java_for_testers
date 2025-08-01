@@ -12,6 +12,8 @@
     <orderEntry type="module" module-name="mantis_tests.main" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-java:4.33.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:4.11.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.12.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-devtools-v135:4.33.0" level="project" />
@@ -25,6 +27,7 @@
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-firefox-driver:4.33.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-ie-driver:4.33.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-safari-driver:4.33.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apiguardian:apiguardian-api:1.1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
@@ -44,6 +47,9 @@
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-http:4.33.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-manager:4.33.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-os:4.33.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.9.10" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio-jvm:3.6.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" name="Gradle: org.jspecify:jspecify:1.0.0" level="project" />
@@ -51,6 +57,8 @@
     <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: io.opentelemetry:opentelemetry-sdk-metrics:1.50.0" level="project" />
     <orderEntry type="library" name="Gradle: io.opentelemetry:opentelemetry-sdk-logs:1.50.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.9.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.9.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.commons:commons-exec:1.4.0" level="project" />

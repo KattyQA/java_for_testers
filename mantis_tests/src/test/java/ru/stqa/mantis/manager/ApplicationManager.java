@@ -13,6 +13,10 @@ public class ApplicationManager {
     private String browser;
     private Properties properties;
     private SessionHelper sessionHelper;
+    private HttpSessionHelper httpSessionHelper;
+    private JamesCliHelper jamesCliHelper;
+    private MailHelper mail;
+    private MantisHelper mantis;
 
     public void init(String browser, Properties properties) {
         this.browser = browser;
@@ -33,7 +37,7 @@ public class ApplicationManager {
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
-            driver.get(properties.getProperty("web.baseURL"));
+            driver.get(properties.getProperty("web.mantisUrl"));
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.manage().window().setSize(new Dimension(1936, 1048));
         }
@@ -46,4 +50,37 @@ public class ApplicationManager {
         }
         return sessionHelper;
     }
+
+    public HttpSessionHelper http(){
+        if (httpSessionHelper == null){
+            httpSessionHelper = new HttpSessionHelper(this);
+        }
+        return httpSessionHelper;
+    }
+
+    public String property(String name){
+        return properties.getProperty(name);
+    }
+
+    public JamesCliHelper jamesCli(){
+        if (jamesCliHelper == null){
+            jamesCliHelper = new JamesCliHelper(this);
+        }
+        return jamesCliHelper;
+    }
+
+    public MailHelper mail(){
+        if (mail == null){
+            mail = new MailHelper(this);
+        }
+        return mail;
+    }
+
+    public MantisHelper mantis(){
+        if (mantis == null){
+            mantis = new MantisHelper(this);
+        }
+        return mantis;
+    }
+
 }

@@ -1,4 +1,5 @@
 package ru.stqa.mantis.manager;
+import ru.stqa.mantis.manager.ApplicationManager;
 
 import org.openqa.selenium.By;
 
@@ -10,7 +11,6 @@ public class HelperBase {
     public HelperBase(ApplicationManager manager) {
         this.manager = manager;
     }
-
     protected void type(By locator, String text) {
         click(locator);
         manager.driver().findElement(locator).clear();
