@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import model.Group;
 
 import java.sql.*;
@@ -45,7 +46,7 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
     }
-
+    @Step
     public boolean isInGroup(int contactId, int groupId) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              PreparedStatement statement = conn.prepareStatement(

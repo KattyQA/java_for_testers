@@ -3,6 +3,7 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import io.qameta.allure.Allure;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -68,7 +69,9 @@ public class CreateGroupTest extends TestBase {
         var newId = extraGroups.get(0).id();
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.add(group.withId(newId));
-        Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
+        Allure.step("Validating group creation", step -> {
+            Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
+        });
     }
 
     public static List<Group> negativeGroupProvider() {
@@ -83,7 +86,9 @@ public class CreateGroupTest extends TestBase {
         var oldGroups = app.groups().getList();
         app.groups().createGroup(group);
         var newGroups = app.groups().getList();
-        Assertions.assertEquals(newGroups, oldGroups);
+        Allure.step("Validating group was not created", step -> {
+            Assertions.assertEquals(newGroups, oldGroups);
+        });
 
     }
 }

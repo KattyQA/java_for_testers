@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import model.Group;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,13 +15,14 @@ public class GroupHelper extends HelperBase {
         super(manager);
 
     }
-
+    @Step
     public void openGroupsPage() {
         if (!manager.isElementPresent(By.name("new"))) {
             click(By.linkText("groups"));
         }
     }
 
+    @Step
     public void createGroup(Group group) {
         openGroupsPage();
         initGroupCreation();
@@ -28,14 +30,14 @@ public class GroupHelper extends HelperBase {
         submitGroupCreation();
         returnToGroupsPage();
     }
-
+    @Step
     public void deleteGroup(Group group) {
         openGroupsPage();
         selectGroup(group);
         removeSelectedGroups();
         returnToGroupsPage();
     }
-
+    @Step
     public void modifyGroup(Group group,Group modifiedGroup) {
         openGroupsPage();
         selectGroup(group);
@@ -44,39 +46,39 @@ public class GroupHelper extends HelperBase {
         submitGroupModification();
         returnToGroupsPage();
     }
-
+    @Step
     private void submitGroupCreation() {
         click(By.name("submit"));
     }
-
+    @Step
     private void initGroupCreation() {
         click(By.name("new"));
     }
-
+    @Step
     private void removeSelectedGroups() {
         click(By.name("delete"));
     }
-
+    @Step
     private void returnToGroupsPage() {
         click(By.linkText("group page"));
     }
-
+    @Step
     private void submitGroupModification() {
         click(By.name("update"));
 
     }
-
+    @Step
     private void fillGroupForm(Group group) {
         type(By.name("group_name"), group.name());
         type(By.name("group_header"), group.header());
         type(By.name("group_footer"), group.footer());
 
     }
-
+    @Step
     private void initGroupModification() {
         click(By.name("edit"));
     }
-
+    @Step
     private void selectGroup(Group group) {
         click(By.cssSelector(String.format("input[value='%s']", group.id())));
     }
@@ -85,19 +87,19 @@ public class GroupHelper extends HelperBase {
         openGroupsPage();
          return manager.driver.findElements(By.name("selected[]")).size();
     }
-
+    @Step
     public void removeAllGroups() {
         openGroupsPage();
         selectAllGroups();
         removeSelectedGroups();
     }
-
+    @Step
     private void selectAllGroups() {
         manager.driver
                 .findElements(By.name("selected[]"))
                 .forEach(WebElement::click);
     }
-
+    @Step
     public List<Group> getList() {
         var spans = manager.driver.findElements(By.cssSelector("span.group"));
         return spans.stream()

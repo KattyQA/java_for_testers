@@ -3,6 +3,7 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import io.qameta.allure.Allure;
 import model.Contact;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +52,9 @@ public class CreateContactTest extends TestBase {
     var expectedList = new ArrayList<>(oldContacts);
     expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()).withEmail("").withAddress("").withHomePhone("").withPhoto(""));
     expectedList.sort(compareById);
-    Assertions.assertEquals(newContacts, expectedList);
+    Allure.step("Validating results", step -> {
+      Assertions.assertEquals(newContacts, expectedList);
+    });
 
   }
 
@@ -61,9 +64,11 @@ public class CreateContactTest extends TestBase {
             .withFirstName(CommonFunctions.randomString(10))
             .withLastName(CommonFunctions.randomString(10))
             .withPhoto(randomFile("src/test/resources/images"));
-    if (app.hbm().getGroupCount() == 0) {
-      app.hbm().createGroup(new Group("", "new", "new", "new"));
-    }
+    Allure.step("Checking group precondition", step -> {
+      if (app.hbm().getGroupCount() == 0) {
+        app.hbm().createGroup(new Group("", "new", "new", "new"));
+      }
+    });
     var group = app.hbm().getGroupList().get(0);
 
     var oldRelated = app.hbm().getContactsInGroup(group);
@@ -76,7 +81,9 @@ public class CreateContactTest extends TestBase {
     var expectedList = new ArrayList<>(oldRelated);
     expectedList.add(contact.withId(newRelated.get(newRelated.size() - 1).id()).withEmail("").withAddress("").withHomePhone("").withPhoto(""));
     expectedList.sort(compareById);
-    Assertions.assertEquals(newRelated, expectedList);
+    Allure.step("Validating results", step -> {
+      Assertions.assertEquals(newRelated, expectedList);
+    });
 
   }
 

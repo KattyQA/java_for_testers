@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Allure;
 import model.Contact;
 import model.Group;
 import org.junit.jupiter.api.Assertions;
@@ -11,12 +12,15 @@ public class AddContactToGroup extends TestBase{
 
     @Test
     public void canAddContactToGroup(){
-        if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
-        }
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().createGroup(new Group("", "new", "new", "new"));
-        }
+        Allure.step("Checking precondition", step -> {
+            if (app.hbm().getContactCount() == 0) {
+                app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
+            }
+            if (app.hbm().getGroupCount() == 0) {
+                app.hbm().createGroup(new Group("", "new", "new", "new"));
+            }
+        });
+
         var group = app.hbm().getGroupList().get(0);
         var oldContactsInGroup = app.hbm().getContactsInGroup(group);
         var contacts = app.hbm().getContactList();
@@ -24,19 +28,23 @@ public class AddContactToGroup extends TestBase{
         var index = rnd.nextInt(contacts.size());
         app.contacts().addContactToGroup(new Contact().withId(contacts.get(index).id()));
         var newContactsInGroup = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldContactsInGroup.size() + 1, newContactsInGroup.size());
+        Allure.step("Validating results", step -> {
+            Assertions.assertEquals(oldContactsInGroup.size() + 1, newContactsInGroup.size());
+        });
+
 
     }
 
     @Test
     public void testAddContactToGroup() {
-        if (app.hbm().getContactCount() == 0) {
-            app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
-        }
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().createGroup(new Group("", "new", "new", "new"));
-        }
-
+        Allure.step("Checking precondition", step -> {
+            if (app.hbm().getContactCount() == 0) {
+                app.contacts().createContact(new Contact("", "name", "last", "Perm", "s@rty.ru", "2342563654", "", "", "", "", "", ""));
+            }
+            if (app.hbm().getGroupCount() == 0) {
+                app.hbm().createGroup(new Group("", "new", "new", "new"));
+            }
+        });
         var group = app.hbm().getGroupList().get(0);
         int groupId = group.getId();
         var contactIds = app.hbm().getContactIds();
@@ -61,7 +69,9 @@ public class AddContactToGroup extends TestBase{
         }
 
         var newContactsInGroup = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldContactsInGroup.size() + 1, newContactsInGroup.size());
+        Allure.step("Validating results", step -> {
+            Assertions.assertEquals(oldContactsInGroup.size() + 1, newContactsInGroup.size());
+        });
     }
 
 }
