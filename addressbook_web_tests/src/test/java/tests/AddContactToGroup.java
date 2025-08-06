@@ -18,6 +18,7 @@ public class AddContactToGroup extends TestBase{
             }
             if (app.hbm().getGroupCount() == 0) {
                 app.hbm().createGroup(new Group("", "new", "new", "new"));
+                app.contacts().returnToHomePage();
             }
         });
 
@@ -43,6 +44,7 @@ public class AddContactToGroup extends TestBase{
             }
             if (app.hbm().getGroupCount() == 0) {
                 app.hbm().createGroup(new Group("", "new", "new", "new"));
+                app.contacts().returnToHomePage();
             }
         });
         var group = app.hbm().getGroupList().get(0);

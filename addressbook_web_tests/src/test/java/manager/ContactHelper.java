@@ -68,7 +68,7 @@ public class ContactHelper extends HelperBase {
         manager.driver.findElement(By.id(contact.id())).findElement(By.xpath("../../td[8]/a/img")).click();
     }
     @Step
-    private void returnToHomePage() {
+    public void returnToHomePage() {
         click(By.linkText("home"));
     }
     @Step
