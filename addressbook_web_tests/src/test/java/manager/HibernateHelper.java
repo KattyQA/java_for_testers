@@ -133,4 +133,13 @@ public class HibernateHelper extends HelperBase {
             return count != null && count > 0;
         });
     }
+
+    public Contact getLastAddedContact() {
+        List<ContactRecord> records = sessionFactory.fromSession(session -> {
+            return session.createQuery("from ContactRecord order by id desc", ContactRecord.class)
+                    .setMaxResults(1)
+                    .getResultList();
+        });
+        return convert(records.get(0));
+    }
 }

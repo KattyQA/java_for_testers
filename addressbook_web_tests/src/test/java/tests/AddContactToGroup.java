@@ -67,7 +67,8 @@ public class AddContactToGroup extends TestBase{
         if (!contactAdded) {
             Contact newContact = new Contact("", "newName", "newLast", "Perm", "new@email.ru", "987654321", "", "", "", "", "", "");
             app.contacts().createContact(newContact);
-            app.contacts().addContactToGroup(newContact);
+            Contact addedContact = app.hbm().getLastAddedContact();
+            app.contacts().addContactToGroup(addedContact);
         }
 
         var newContactsInGroup = app.hbm().getContactsInGroup(group);
